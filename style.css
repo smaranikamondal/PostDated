@@ -1,0 +1,468 @@
+/* PostDated — vintage postal theme */
+
+:root {
+  --paper: #f4ead5;
+  --paper-dark: #e8d9b8;
+  --ink: #2c2416;
+  --ink-muted: #5c5140;
+  --red-wax: #8b2e2e;
+  --navy: #2a3a4a;
+  --stamp-prediction: #9c2b2b;
+  --stamp-goal: #2f5d3a;
+  --stamp-reminder: #2b4a7a;
+  --line: #c4b08a;
+  --shadow: rgba(44, 36, 22, 0.18);
+  --serif: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --mono: "Courier New", Courier, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--serif);
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse at top, #faf3e3 0%, var(--paper) 55%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 27px,
+      rgba(139, 119, 80, 0.06) 28px
+    );
+  line-height: 1.5;
+}
+
+.paper-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+main,
+header,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+.masthead {
+  text-align: center;
+  padding: 2.5rem 1.25rem 1.5rem;
+  border-bottom: 3px double var(--navy);
+}
+
+.post-office {
+  margin: 0;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+.masthead h1 {
+  margin: 0.35rem 0 0.2rem;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.tagline {
+  margin: 0;
+  font-style: italic;
+  color: var(--red-wax);
+  font-size: 1.15rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.15rem 3rem;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin: 0 0 0.35rem;
+  letter-spacing: 0.03em;
+}
+
+.card,
+.mailbox {
+  background: #fbf6ea;
+  border: 1px solid var(--line);
+  box-shadow: 4px 6px 0 var(--shadow);
+  padding: 1.35rem 1.4rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.compose label,
+.compose legend {
+  display: block;
+  font-size: 0.92rem;
+  margin-bottom: 0.35rem;
+}
+
+.compose textarea,
+.compose input[type="date"] {
+  width: 100%;
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fffdf7;
+  border: 1px solid var(--line);
+  padding: 0.7rem 0.8rem;
+}
+
+.compose textarea:focus,
+.compose input[type="date"]:focus {
+  outline: 2px solid var(--navy);
+  outline-offset: 1px;
+}
+
+.form-row {
+  margin-top: 1rem;
+  max-width: 240px;
+}
+
+.tag-picker {
+  border: 0;
+  padding: 0;
+  margin: 1.15rem 0 0.8rem;
+}
+
+.stamp-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.stamp-choice {
+  cursor: pointer;
+  margin: 0;
+}
+
+.stamp-choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stamp {
+  display: inline-block;
+  padding: 0.45rem 0.7rem;
+  border: 3px dashed currentColor;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background:
+    radial-gradient(circle at 8% 20%, rgba(255, 255, 255, 0.25) 0 8%, transparent 9%),
+    currentColor;
+  color: #f7efe0;
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.12);
+  transform: rotate(-2deg);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.stamp-prediction {
+  background-color: var(--stamp-prediction);
+}
+
+.stamp-goal {
+  background-color: var(--stamp-goal);
+  transform: rotate(1.5deg);
+}
+
+.stamp-reminder {
+  background-color: var(--stamp-reminder);
+  transform: rotate(-1deg);
+}
+
+.stamp-choice input:focus-visible + .stamp {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.stamp-choice input:checked + .stamp {
+  filter: brightness(1.08);
+  transform: rotate(0deg) scale(1.06);
+  box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px currentColor;
+}
+
+.form-error {
+  color: var(--red-wax);
+  font-style: italic;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.wax-seal-btn {
+  display: inline-block;
+  margin-top: 0.4rem;
+  background: radial-gradient(circle at 35% 30%, #c45a4a, var(--red-wax) 62%);
+  color: #f8ead8;
+  border: 0;
+  border-radius: 50%;
+  width: 6.4rem;
+  height: 6.4rem;
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 0 6px rgba(80, 16, 16, 0.25),
+    0 4px 0 rgba(90, 20, 20, 0.35);
+}
+
+.wax-seal-btn:hover {
+  filter: brightness(1.06);
+}
+
+.wax-seal-btn:active {
+  transform: translateY(2px);
+}
+
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 0.5rem;
+  border-top: 1px dashed var(--navy);
+  border-bottom: 1px dashed var(--navy);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  margin-right: 0.25rem;
+  color: var(--ink-muted);
+}
+
+.filter-btn {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+}
+
+.filter-btn.is-active {
+  background: var(--navy);
+  color: #f4ead5;
+}
+
+.section-hint {
+  margin: 0 0 1rem;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.letter-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.empty-state {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.letter-card {
+  position: relative;
+  margin: 0;
+  background: #f7f0de;
+  border: 1px solid #c9b48a;
+  padding: 1.1rem 1.15rem 1.2rem;
+  box-shadow: 2px 3px 0 rgba(44, 36, 22, 0.08);
+}
+
+.letter-card.envelope {
+  background:
+    linear-gradient(165deg, #efe4c8 0 38%, transparent 39%),
+    linear-gradient(195deg, #efe4c8 0 38%, transparent 39%),
+    #f7f0de;
+  background-size: 100% 42%, 100% 42%, 100% 100%;
+  background-repeat: no-repeat;
+  background-position: top left, top right, center;
+  min-height: 9.5rem;
+  padding-top: 2.4rem;
+}
+
+.letter-card.just-unlocked {
+  animation: unseal 0.85s ease;
+}
+
+@keyframes unseal {
+  0% {
+    transform: rotateX(55deg) scale(0.96);
+    opacity: 0.2;
+    filter: blur(2px);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.postmark {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  width: 5.6rem;
+  height: 5.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--navy);
+  opacity: 0.85;
+  transform: rotate(8deg);
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.postmark span {
+  display: block;
+}
+
+.countdown {
+  margin: 0.85rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.letter-meta {
+  margin: 0.45rem 0 0;
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+}
+
+.letter-body {
+  margin: 0.9rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.outcome-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.outcome-btn,
+.delete-btn {
+  font-family: var(--serif);
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.outcome-btn {
+  background: #fffdf7;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+  padding: 0.35rem 0.7rem;
+}
+
+.outcome-btn:hover {
+  background: var(--navy);
+  color: #f4ead5;
+}
+
+.outcome-saved {
+  margin: 0.75rem 0 0;
+  font-style: italic;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.65rem;
+  background: transparent;
+  border: 0;
+  color: var(--ink-muted);
+  text-decoration: underline;
+  padding: 0.2rem;
+}
+
+.delete-btn:hover {
+  color: var(--red-wax);
+}
+
+footer {
+  text-align: center;
+  padding: 0 1rem 2rem;
+  color: var(--ink-muted);
+  font-size: 0.88rem;
+}
+
+@media (min-width: 720px) {
+  .letter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter-card.just-unlocked {
+    animation: none;
+  }
+
+  .stamp,
+  .wax-seal-btn {
+    transition: none;
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostDated — Write now. Read later.</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="paper-grain" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <p class="post-office">The Future Post Office</p>
+      <h1>PostDated</h1>
+      <p class="tagline">Write now. Read later.</p>
+    </header>
+
+    <main>
+      <section class="compose card" aria-labelledby="compose-heading">
+        <h2 id="compose-heading">Address a letter to later</h2>
+        <form id="letter-form" novalidate>
+          <label for="letter-text">Your message</label>
+          <textarea
+            id="letter-text"
+            name="text"
+            rows="6"
+            maxlength="4000"
+            required
+            placeholder="A prediction, a goal, or a note your future self should find waiting…"
+          ></textarea>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="unlock-date">Deliver on</label>
+              <input type="date" id="unlock-date" name="unlockDate" required />
+            </div>
+          </div>
+
+          <fieldset class="tag-picker">
+            <legend>Postage stamp</legend>
+            <div class="stamp-options">
+              <label class="stamp-choice">
+                <input type="radio" name="tag" value="prediction" required />
+                <span class="stamp stamp-prediction">Prediction</span>
+              </label>
+              <label class="stamp-choice">
+                <input type="radio" name="tag" value="goal" />
+                <span class="stamp stamp-goal">Goal</span>
+              </label>
+              <label class="stamp-choice">
+                <input type="radio" name="tag" value="reminder" />
+                <span class="stamp stamp-reminder">Reminder</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+
+          <button type="submit" class="wax-seal-btn">Seal &amp; send</button>
+        </form>
+      </section>
+
+      <section class="stats-bar" aria-label="Letter statistics">
+        <div class="stat">
+          <span class="stat-value" id="stat-total">0</span>
+          <span class="stat-label">Total</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-sealed">0</span>
+          <span class="stat-label">Sealed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-delivered">0</span>
+          <span class="stat-label">Delivered</span>
+        </div>
+        <div class="stat" id="stat-accuracy-wrap" hidden>
+          <span class="stat-value" id="stat-accuracy">—</span>
+          <span class="stat-label">Predictions right</span>
+        </div>
+      </section>
+
+      <form class="filter-bar" id="filter-form" aria-label="Filter letters by stamp">
+        <span class="filter-label">Show</span>
+        <button type="submit" class="filter-btn is-active" name="filter" value="all">All</button>
+        <button type="submit" class="filter-btn" name="filter" value="prediction">Predictions</button>
+        <button type="submit" class="filter-btn" name="filter" value="goal">Goals</button>
+        <button type="submit" class="filter-btn" name="filter" value="reminder">Reminders</button>
+      </form>
+
+      <section class="mailbox" aria-labelledby="sealed-heading">
+        <h2 id="sealed-heading">Sealed</h2>
+        <p class="section-hint">Unopened until the postmark date. The letter stays hidden.</p>
+        <div id="sealed-list" class="letter-grid"></div>
+        <p id="sealed-empty" class="empty-state">No sealed letters in this tray.</p>
+      </section>
+
+      <section class="mailbox" aria-labelledby="delivered-heading">
+        <h2 id="delivered-heading">Delivered</h2>
+        <p class="section-hint">These envelopes have arrived. Open them and mark how they turned out.</p>
+        <div id="delivered-list" class="letter-grid"></div>
+        <p id="delivered-empty" class="empty-state">Nothing has been delivered yet.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Kept locally in this browser. No postmaster, no cloud.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
